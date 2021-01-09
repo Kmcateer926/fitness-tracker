@@ -19,21 +19,7 @@ module.exports = (app) => {
     });
   });
 
-  app.put("/api/workouts/:id", (req, res) => {
-    db.Workout.findByIdAndUpdate(
-      req.params.id,
-      { $push: { exercises: req.body } },
-      { new: true }
-    )
-      .then((workout) => {
-        res.json(workout);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  });
-
-  app.get("/api/workouts/range", (req, res) => {
+app.get("/api/workouts/range", (req, res) => {
     db.Workout.aggregate([
       {
         $addFields: {
@@ -51,3 +37,19 @@ module.exports = (app) => {
       });
   });
 };
+
+  app.put("/api/workouts/:id", (req, res) => {
+    db.Workout.findByIdAndUpdate(
+      req.params.id,
+      { $push: { exercises: req.body } },
+      { new: true }
+    )
+      .then((workout) => {
+        res.json(workout);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  });
+
+  
