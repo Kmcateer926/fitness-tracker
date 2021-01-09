@@ -1,17 +1,14 @@
-// required modules
 const express = require("express");
 const mongoose = require("mongoose");
+const logger = require("morgan");
 
-// create express instance
 const app = express();
 
-// setup port 8080
 const PORT = process.env.PORT || 8080;
 
-// set middleware
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-
+app.use(logger("dev"));
 app.use(express.static("public"));
 
 require("./routes/apiRoutes")(app);
